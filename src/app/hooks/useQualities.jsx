@@ -34,15 +34,20 @@ export const QualitiesProvider = ({ children }) => {
         setIsLoading(false);
     };
     const getQualitiesList = (id) => {
-          return qualities.find((q) => q._id === id);
+        return qualities.find((q) => q._id === id);
     };
 
     return (
-        <QualitiesContext.Provider value={{ isLoading, qualities, getQualitiesList }}>
-            { children }
+        <QualitiesContext.Provider
+            value={{ isLoading, qualities, getQualitiesList }}
+        >
+            {children}
         </QualitiesContext.Provider>
     );
 };
 QualitiesProvider.propTypes = {
-    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ])
 };

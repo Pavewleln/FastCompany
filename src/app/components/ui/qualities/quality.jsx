@@ -4,7 +4,11 @@ import { useQualities } from "../../../hooks/useQualities";
 const Quality = ({ id }) => {
     const { getQualitiesList } = useQualities();
     const quality = getQualitiesList(id);
-    return <span key={quality.id} className={"badge m-1 bg-" + quality.color}>{quality.name}</span>;
+    return (
+        <span key={quality.id} className={"badge m-1 bg-" + quality.color}>
+            {quality.name}
+        </span>
+    );
 };
 Quality.propTypes = {
     id: PropTypes.string.isRequired

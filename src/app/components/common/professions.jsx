@@ -6,7 +6,7 @@ export const Professions = ({ id }) => {
     const { isLoading, getProfessionList } = useProfession();
     const prof = getProfessionList(id);
     if (!isLoading) {
-        return (<p> { prof.name } </p>);
+        return <p> {prof.name} </p>;
     } else {
         return "loading";
     }

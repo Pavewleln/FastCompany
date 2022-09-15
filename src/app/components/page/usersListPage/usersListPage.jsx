@@ -9,19 +9,14 @@ import _ from "lodash";
 import { useUser } from "../../../hooks/useUsers";
 import { useProfession } from "../../../hooks/useProfessions";
 const UsersListPage = () => {
+    const { isLoading, professions } = useProfession();
     const [currentPage, setCurrentPage] = useState(1);
-    const [profession, setProfession] = useState();
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
     const pageSize = 4;
+    console.log(professions);
     const { users } = useUser();
-    const { professions } = useProfession();
-    // console.log(users);
-    const handleDelete = (userId) => {
-        // setUsers(users.filter((user) => user._id !== userId));
-        console.log(userId);
-    };
     const handleToggleBookMark = (id) => {
         const newArray = users.map((user) => {
             if (user._id === id) {
@@ -32,11 +27,6 @@ const UsersListPage = () => {
         // setUsers(newArray);
         console.log(newArray);
     };
-
-    useEffect(() => {
-        setProfession(professions);
-    }, [professions]);
-
     useEffect(() => {
         setCurrentPage(1);
     }, [selectedProf, searchQuery]);
@@ -86,11 +76,11 @@ const UsersListPage = () => {
 
         return (
             <div className="d-flex">
-                {profession && (
+                {professions && !isLoading && (
                     <div className="d-flex flex-column flex-shrink-0 p-3">
                         <GroupList
                             selectedItem={selectedProf}
-                            items={profession}
+                            items={professions}
                             onItemSelect={handleProfessionSelect}
                         />
                         <button
@@ -116,7 +106,6 @@ const UsersListPage = () => {
                             users={usersCrop}
                             onSort={handleSort}
                             selectedSort={sortBy}
-                            onDelete={handleDelete}
                             onToggleBookMark={handleToggleBookMark}
                         />
                     )}

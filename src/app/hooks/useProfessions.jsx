@@ -34,15 +34,20 @@ export const ProfessionProvider = ({ children }) => {
         setIsLoading(false);
     };
     const getProfessionList = (id) => {
-          return professions.find((p) => p._id === id);
+        return professions.find((p) => p._id === id);
     };
 
     return (
-        <ProfessionContext.Provider value={{ isLoading, professions, getProfessionList }}>
-            { children }
+        <ProfessionContext.Provider
+            value={{ isLoading, professions, getProfessionList }}
+        >
+            {children}
         </ProfessionContext.Provider>
     );
 };
 ProfessionProvider.propTypes = {
-    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node])
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ])
 };

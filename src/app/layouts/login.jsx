@@ -24,7 +24,11 @@ const Login = () => {
                             <RegisterForm />
                             <p>
                                 Already have account?{" "}
-                                <a role="button" onClick={toggleFormType}>
+                                <a
+                                    role="button"
+                                    className={"alert-danger"}
+                                    onClick={toggleFormType}
+                                >
                                     {" "}
                                     Sign In
                                 </a>
@@ -36,7 +40,11 @@ const Login = () => {
                             <LoginForm />
                             <p>
                                 Dont have account?{" "}
-                                <a role="button" onClick={toggleFormType}>
+                                <a
+                                    role="button"
+                                    className={"alert-danger"}
+                                    onClick={toggleFormType}
+                                >
                                     {" "}
                                     Sign Up
                                 </a>

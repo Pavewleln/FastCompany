@@ -6,11 +6,13 @@ import { useQualities } from "../../hooks/useQualities";
 const Qualities = ({ qualities }) => {
     const { isLoading } = useQualities();
     if (!isLoading) {
-        return <p>
-            {qualities.map((qual) => (
-                <Quality key={qual} id={qual} />
-            ))}
-        </p>;
+        return (
+            <p>
+                {qualities.map((qual) => (
+                    <Quality key={qual} id={qual} />
+                ))}
+            </p>
+        );
     } else {
         return "loading";
     }
