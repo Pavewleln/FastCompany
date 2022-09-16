@@ -10,7 +10,7 @@ export const NavProfile = () => {
     return (
         <div className={"dropdown"} onClick={toggleMenu}>
             <div>
-                <btn
+                <div
                     className={"btn dropdown-toggle d-flex align-items-center"}
                 >
                     <div className={"me-2"}>
@@ -23,11 +23,11 @@ export const NavProfile = () => {
                             height="65"
                         />
                     </div>
-                </btn>
+                </div>
             </div>
             <div className={"dropdown-menu w-100" + (isOpen ? " show" : "")}>
                 <Link
-                    to={`users/${currentUser._id}`}
+                    to={`/users/${currentUser._id}`}
                     className={"dropdown-item"}
                 >
                     Профиль

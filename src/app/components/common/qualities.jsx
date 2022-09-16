@@ -7,11 +7,11 @@ const Qualities = ({ qualities }) => {
     const { isLoading } = useQualities();
     if (!isLoading) {
         return (
-            <p>
+            <div>
                 {qualities.map((qual) => (
                     <Quality key={qual} id={qual} />
                 ))}
-            </p>
+            </div>
         );
     } else {
         return "loading";

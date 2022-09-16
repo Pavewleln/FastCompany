@@ -5,9 +5,5 @@ export const Logout = () => {
     useEffect(() => {
         logout();
     }, []);
-    return (
-        <h3>
-            loading...
-        </h3>
-    );
+    return <h3>loading...</h3>;
 };

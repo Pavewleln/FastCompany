@@ -6,7 +6,7 @@ import { NavProfile } from "./navProfile";
 const NavBar = () => {
     const { currentUser } = useAuth();
     return (
-        <nav className={"navbar bg-light p-3"}>
+        <nav className={"navbar bg-light p-3 mb-3"}>
             <div className={"container-fluid"}>
                 <ul className="nav">
                     <li className="nav-item">

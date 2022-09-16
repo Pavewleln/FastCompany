@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
         } catch (error) {
             ErrorCatcher(error);
         } finally {
-           setLoading(false);
+            setLoading(false);
         }
     }
     useEffect(() => {
@@ -88,9 +88,11 @@ const AuthProvider = ({ children }) => {
                 returnSecureToken: true
             });
             setTokens(data); // 1) Сначало получаем токен и только потом создаем юзера
-            await createUser({ // 2)
+            await createUser({
+                // 2)
                 _id: data.localId,
                 email,
+                password,
                 rate: randomInt(1, 5),
                 completedMeetings: randomInt(0, 200),
                 image: `https://avatars.dicebear.com/api/avataaars/${(
@@ -128,7 +130,7 @@ const AuthProvider = ({ children }) => {
     };
     return (
         <AuthContext.Provider value={{ signUp, signIn, logout, currentUser }}>
-            { !isLoading ? children : "loading"}
+            {!isLoading ? children : "loading"}
         </AuthContext.Provider>
     );
 };
