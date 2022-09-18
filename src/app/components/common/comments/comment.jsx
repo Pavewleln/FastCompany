@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { displayDate } from "../../../utils/displayDate";
 import { useUser } from "../../../hooks/useUsers";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../../hooks/useAuth";
 const Comment = ({
     content,
     created_at: created,
@@ -11,6 +12,7 @@ const Comment = ({
     onRemove
 }) => {
     const { getUserById } = useUser();
+    const { currentUser } = useAuth();
     const user = getUserById(userId);
     return (
         <div className="bg-light card-body  mb-3">
@@ -36,12 +38,14 @@ const Comment = ({
                                             - {displayDate(created)}
                                         </span>
                                     </p>
-                                    <button
-                                        className="btn btn-sm text-primary d-flex align-items-center"
-                                        onClick={() => onRemove(id)}
-                                    >
-                                        <i className="bi bi-x-lg"></i>
-                                    </button>
+                                    {currentUser._id === userId._id && (
+                                        <button
+                                            className="btn btn-sm text-primary d-flex align-items-center"
+                                            onClick={() => onRemove(id)}
+                                        >
+                                            <i className="bi bi-x-lg"></i>
+                                        </button>
+                                    )}
                                 </div>
                                 <p className="small mb-0">{content}</p>
                             </div>
@@ -56,7 +60,7 @@ Comment.propTypes = {
     content: PropTypes.string,
     edited_at: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     created_at: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    userId: PropTypes.string,
+    userId: PropTypes.object,
     onRemove: PropTypes.func,
     _id: PropTypes.string
 };

@@ -41,6 +41,14 @@ const AuthProvider = ({ children }) => {
             setError(null);
         }
     }, [error]);
+    async function updateUserData(data) {
+        try {
+            const { content } = await UserService.updateUserData(data);
+            setUser(content);
+        } catch (error) {
+            ErrorCatcher(error);
+        }
+    }
     async function logout() {
         localStorageService.removeAuthData();
         setUser(null);
@@ -88,8 +96,7 @@ const AuthProvider = ({ children }) => {
                 returnSecureToken: true
             });
             setTokens(data); // 1) Сначало получаем токен и только потом создаем юзера
-            await createUser({
-                // 2)
+            await createUser({ // 2)
                 _id: data.localId,
                 email,
                 password,
@@ -119,7 +126,6 @@ const AuthProvider = ({ children }) => {
         try {
             const { content } = await UserService.create(data);
             setUser(content);
-            await console.log(UserService.create(data));
         } catch (error) {
             ErrorCatcher(error);
         }
@@ -129,7 +135,7 @@ const AuthProvider = ({ children }) => {
         setError(message);
     };
     return (
-        <AuthContext.Provider value={{ signUp, signIn, logout, currentUser }}>
+        <AuthContext.Provider value={{ signUp, signIn, logout, currentUser, updateUserData }}>
             {!isLoading ? children : "loading"}
         </AuthContext.Provider>
     );
