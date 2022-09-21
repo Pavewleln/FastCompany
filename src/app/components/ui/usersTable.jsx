@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import BookMark from "../common/bookmark";
 import Table from "../common/table";
 import { Link } from "react-router-dom";
 import { Professions } from "../common/professions";
@@ -9,9 +8,7 @@ import Qualities from "./qualities";
 const UserTable = ({
     users,
     onSort,
-    selectedSort,
-    onToggleBookMark,
-    ...rest
+    selectedSort
 }) => {
     const columns = {
         name: {
@@ -33,17 +30,7 @@ const UserTable = ({
             path: "completedMeetings",
             name: "Встретился, раз"
         },
-        rate: { path: "rate", name: "Оценка" },
-        bookmark: {
-            path: "bookmark",
-            name: "Избранное",
-            component: (user) => (
-                <BookMark
-                    status={user.bookmark}
-                    onClick={() => onToggleBookMark(user._id)}
-                />
-            )
-        }
+        rate: { path: "rate", name: "Оценка" }
     };
     return (
         <Table
@@ -58,8 +45,7 @@ const UserTable = ({
 UserTable.propTypes = {
     users: PropTypes.array.isRequired,
     onSort: PropTypes.func.isRequired,
-    selectedSort: PropTypes.object.isRequired,
-    onToggleBookMark: PropTypes.func.isRequired
+    selectedSort: PropTypes.object.isRequired
 };
 
 export default UserTable;

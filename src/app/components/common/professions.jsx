@@ -1,10 +1,11 @@
 import React from "react";
-import { useProfession } from "../../hooks/useProfessions";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+import { getProfessionByIds, getProfessionsLoadingStatus } from "../../store/professions";
 
 export const Professions = ({ id }) => {
-    const { isLoading, getProfessionList } = useProfession();
-    const prof = getProfessionList(id);
+    const prof = useSelector(getProfessionByIds(id));
+    const isLoading = useSelector(getProfessionsLoadingStatus());
     if (!isLoading) {
         return <p> {prof.name} </p>;
     } else {

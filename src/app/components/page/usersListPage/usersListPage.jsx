@@ -7,26 +7,19 @@ import SearchStatus from "../../ui/searchStatus";
 import UserTable from "../../ui/usersTable";
 import _ from "lodash";
 import { useUser } from "../../../hooks/useUsers";
-import { useProfession } from "../../../hooks/useProfessions";
 import { useAuth } from "../../../hooks/useAuth";
+import { useSelector } from "react-redux";
+import { getProfessions, getProfessionsLoadingStatus } from "../../../store/professions";
 const UsersListPage = () => {
     const { currentUser } = useAuth();
-    const { isLoading, professions } = useProfession();
+    const isLoading = useSelector(getProfessionsLoadingStatus());
+    const professions = useSelector(getProfessions());
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
     const pageSize = 4;
     const { users } = useUser();
-    const handleToggleBookMark = (id) => {
-        const newArray = users.map((user) => {
-            if (user._id === id) {
-                return { ...user, bookmark: !user.bookmark };
-            }
-            return user;
-        });
-        console.log(newArray);
-    };
     useEffect(() => {
         setCurrentPage(1);
     }, [selectedProf, searchQuery]);
@@ -108,7 +101,6 @@ const UsersListPage = () => {
                             users={usersCrop}
                             onSort={handleSort}
                             selectedSort={sortBy}
-                            onToggleBookMark={handleToggleBookMark}
                         />
                     )}
                     <div className="d-flex justify-content-center">
