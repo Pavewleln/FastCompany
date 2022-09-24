@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { displayDate } from "../../../utils/displayDate";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getCurrentUserData, getUsersByIds } from "../../../store/users";
+import { getCurrentUserData, getCurrentUserId, getUsersByIds } from "../../../store/users";
 const Comment = ({
     content,
     created_at: created,
@@ -12,7 +12,7 @@ const Comment = ({
     onRemove
 }) => {
     const user = useSelector(getUsersByIds(userId));
-    // const currentUserId = useSelector(getCurrentUserId());
+    const currentUserId = useSelector(getCurrentUserId());
     const currentUser = useSelector(getCurrentUserData());
     return (
         <div className="bg-light card-body  mb-3">
@@ -21,7 +21,7 @@ const Comment = ({
                     <div className="d-flex flex-start ">
                         <Link to={`/users/${currentUser._id}`}>
                             <img
-                                src={currentUser.image}
+                                src={user.image}
                                 className="rounded-circle shadow-1-strong me-3"
                                 alt="avatar"
                                 width="65"
@@ -38,12 +38,14 @@ const Comment = ({
                                             - {displayDate(created)}
                                         </span>
                                     </p>
+                                    {currentUserId === userId && (
                                         <button
                                             className="btn btn-sm text-primary d-flex align-items-center"
                                             onClick={() => onRemove(id)}
                                         >
                                             <i className="bi bi-x-lg"></i>
                                         </button>
+                                    )}
                                 </div>
                                 <p className="small mb-0">{content}</p>
                             </div>
@@ -58,7 +60,7 @@ Comment.propTypes = {
     content: PropTypes.string,
     edited_at: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     created_at: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    userId: PropTypes.object,
+    userId: PropTypes.string,
     onRemove: PropTypes.func,
     _id: PropTypes.string
 };

@@ -6,8 +6,8 @@ import { getQualitiesByIds, getQualitiesLoadingStatus } from "../../store/qualit
 
 const Qualities = ({ qualities }) => {
     const isLoading = useSelector(getQualitiesLoadingStatus());
-    if (isLoading) { return "loading"; }
     const qualitiesList = useSelector(getQualitiesByIds(qualities));
+    if (isLoading) { return "loading"; }
     return (
         <div>
             {qualitiesList.map((qual) => (
