@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { displayDate } from "../../../utils/displayDate";
-import { useUser } from "../../../hooks/useUsers";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../../hooks/useAuth";
+import { useSelector } from "react-redux";
+import { getCurrentUserData, getUsersByIds } from "../../../store/users";
 const Comment = ({
     content,
     created_at: created,
@@ -11,17 +11,17 @@ const Comment = ({
     userId,
     onRemove
 }) => {
-    const { getUserById } = useUser();
-    const { currentUser } = useAuth();
-    const user = getUserById(userId);
+    const user = useSelector(getUsersByIds(userId));
+    // const currentUserId = useSelector(getCurrentUserId());
+    const currentUser = useSelector(getCurrentUserData());
     return (
         <div className="bg-light card-body  mb-3">
             <div className="row">
                 <div className="col">
                     <div className="d-flex flex-start ">
-                        <Link to={`/users/${userId._id}`}>
+                        <Link to={`/users/${currentUser._id}`}>
                             <img
-                                src={userId.image}
+                                src={currentUser.image}
                                 className="rounded-circle shadow-1-strong me-3"
                                 alt="avatar"
                                 width="65"
@@ -38,14 +38,12 @@ const Comment = ({
                                             - {displayDate(created)}
                                         </span>
                                     </p>
-                                    {currentUser._id === userId._id && (
                                         <button
                                             className="btn btn-sm text-primary d-flex align-items-center"
                                             onClick={() => onRemove(id)}
                                         >
                                             <i className="bi bi-x-lg"></i>
                                         </button>
-                                    )}
                                 </div>
                                 <p className="small mb-0">{content}</p>
                             </div>

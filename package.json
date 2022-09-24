@@ -12,6 +12,7 @@
         "bootstrap-icons": "^1.5.0",
         "dotenv": "^16.0.2",
         "eslint-plugin-prettier": "^3.4.1",
+        "history": "^4.9.0",
         "lodash": "^4.17.15",
         "nanoid": "^4.0.0",
         "node": "^16.17.0",

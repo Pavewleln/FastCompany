@@ -1,7 +1,7 @@
 import axios from "axios";
 import configFile from "../config.json";
 import { localStorageService } from "./localStorage.service";
-import { httpAuth } from "../hooks/useAuth";
+import { authService } from "./auth.service";
 
 const http = axios.create({
     baseURL: configFile.apiEndpoint
@@ -16,12 +16,8 @@ http.interceptors.request.use(
                 ".json";
             const expiresData = localStorageService.getExpiresTokenDate();
             const refreshToken = localStorageService.getRefreshToken();
-            const url = `https://securetoken.googleapis.com/v1/token?key=${process.env.REACT_APP_FIREBASE_KEY}`;
             if (expiresData && refreshToken < Date.now) {
-                const { data } = await httpAuth.post(url, {
-                    grant_type: "refresh_token",
-                    refresh_token: refreshToken
-                });
+                const data = await authService.refresh();
                 localStorageService.setTokens({
                     refreshToken: data.refresh_token,
                     idToken: data.id_token,

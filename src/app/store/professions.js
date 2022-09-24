@@ -15,6 +15,7 @@ const professionSlice = createSlice({
         },
         professionReceived: (state, action) => {
             state.entities = action.payload;
+            state.lastFetch = Date.now();
             state.isLoading = false;
         },
         professionRequestFailed: (state, action) => {
@@ -34,11 +35,10 @@ function isOutdated(date) {
     return false;
 }
 
-export const getProfessionList = () => async (dispatch, getState) => {
-    const { lastFetch } = getState().qualities;
-    dispatch(professionRequested());
-
+export const loadProfessionList = () => async (dispatch, getState) => {
+    const { lastFetch } = getState().professions;
     if (isOutdated(lastFetch)) {
+        dispatch(professionRequested());
         try {
             const { content } = await ProfessionService.get();
             dispatch(professionReceived(content));
